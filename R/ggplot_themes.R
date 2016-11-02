@@ -1,5 +1,7 @@
-
-## ggplot2 theme original
+#' ggplot2 furniture theme
+#' 
+#' 
+#' @export
 theme_furniture <- theme_bw()
 theme_furniture <- theme_update(legend.key=element_rect(color="white"),
                                 panel.border=element_rect(color="grey99", size=.1),
@@ -13,7 +15,10 @@ theme_furniture <- theme_update(legend.key=element_rect(color="white"),
                                 panel.background=element_rect(fill="grey99"),
                                 plot.background=element_rect(fill="grey99"))
 
-## ggplot2 theme white
+#' ggplot2 furniture-white theme
+#' 
+#' 
+#' @export
 theme_furniture_white <- theme_bw()
 theme_furniture_white <- theme_update(legend.key=element_rect(color="white"),
                                 panel.border=element_blank(),
