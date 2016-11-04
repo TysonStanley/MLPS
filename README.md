@@ -1,6 +1,6 @@
-# MLPS *(Machine Learning in Prevention Science)*
+# anteo *(Latin: prevent, go before)*
 
-This package is built for use in interpreting *random forests* and *conditional inference forests* in `R`. This is built on two main aspects of interpretation: 1) visualizations and 2) tables.
+Anteo means to prevent or go before; since this package is built for prevention research it was only fitting (plus it sounds good). This package is built for use in interpreting *random forests* and *conditional inference forests* in `R`. This is built on two main aspects of interpretation: 1) visualizations and 2) tables.
 
 ## Visualizations
 
@@ -19,8 +19,8 @@ The second aspect of exploring and communicating results from these models are t
 
 There are two `ggplot2` themes that are included in the package:
 
-1. `theme_furniture()`: this theme is well designed for formal presentations. 
-2. `theme_furniture_white`: this theme is well designed for publication. 
+1. `theme_anteo()`: this theme is well designed for formal presentations. 
+2. `theme_anteo_wh`: this theme is well designed for publication. 
 
 They are professional and easy on the eyes. Feel free to use for presentations or publications.
 
