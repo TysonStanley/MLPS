@@ -10,18 +10,20 @@
 #' 
 #' @export
 theme_anteo <- function(base_size = 12, base_family = "Helvetica"){
-  theme_bw(base_size = base_size, base_family = base_family) %+replace%
-    theme(legend.key=element_rect(color="grey99"),
-          panel.border=element_rect(color="grey99", size=.1),
-          axis.ticks.y=element_line(color="lightgrey"),
-          axis.ticks.x=element_line(color="lightgrey"),
-          strip.background=element_rect(fill="grey99", color="grey99"),
-          strip.text=element_text(face="bold"),
-          axis.line.x=element_line(color="grey70"),
-          axis.line.y=element_line(color="grey70"),
-          panel.spacing = unit(0, "lines"),
-          panel.background=element_rect(fill="grey99"),
-          plot.background=element_rect(fill="grey99"))
+  theme_bw(base_size = base_size, base_family = base_family) +
+  theme(legend.key=element_rect(color="grey99"),
+        legend.box.background=element_rect(color="grey99"),
+        legend.background=element_rect(color="grey99"),
+        panel.border=element_rect(color="grey99", size=.1),
+        axis.ticks.y=element_line(color="lightgrey"),
+        axis.ticks.x=element_line(color="lightgrey"),
+        strip.background=element_rect(fill="grey99", color="grey99"),
+        strip.text=element_text(face="bold"),
+        axis.line.x=element_line(color="grey70"),
+        axis.line.y=element_line(color="grey70"),
+        panel.spacing = unit(0, "lines"),
+        panel.background=element_rect(fill="grey99"),
+        plot.background=element_rect(fill="grey99"))
 }
 
 
@@ -39,17 +41,17 @@ theme_anteo <- function(base_size = 12, base_family = "Helvetica"){
 #' 
 #' @export
 theme_anteo_wh <- function(base_size = 12, base_family = "Helvetica"){
-  theme_anteo(base_size = base_size, base_family = base_family) %+replace%
-    theme(legend.key=element_rect(color="white"),
-          panel.border=element_blank(),
-          axis.ticks.y=element_line(color="grey50"),
-          axis.ticks.x=element_line(color="grey50"),
-          strip.background=element_rect(fill="white", color="white"),
-          strip.text=element_text(face="bold"),
-          axis.line.x=element_line(color="grey70"),
-          axis.line.y=element_line(color="grey70"),
-          panel.spacing = unit(0, "lines"),
-          panel.background=element_rect(fill="grey99"),
-          plot.background=element_rect(fill="white"))
+  theme_anteo(base_size = base_size, base_family = base_family) +
+  theme(legend.key=element_rect(color="white"),
+        panel.border=element_blank(),
+        axis.ticks.y=element_line(color="grey50"),
+        axis.ticks.x=element_line(color="grey50"),
+        strip.background=element_rect(fill="white", color="white"),
+        strip.text=element_text(face="bold"),
+        axis.line.x=element_line(color="grey70"),
+        axis.line.y=element_line(color="grey70"),
+        panel.spacing = unit(0, "lines"),
+        panel.background=element_rect(fill="grey99"),
+        plot.background=element_rect(fill="white"))
 }
 
