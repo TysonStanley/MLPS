@@ -1,6 +1,8 @@
 # anteo *(Latin: prevent, go before)*
 
-Anteo means to prevent or go before; since this package is built for prevention research it was only fitting (plus it sounds good). This package is built for use in interpreting *random forests* and *conditional inference forests* in `R`. This is built on two main aspects of interpretation: 1) visualizations and 2) tables.
+Anteo means to prevent or go before; since this package is built for prevention research it was only fitting (plus it sounds good). This package is built for use in interpreting *random forests* and *conditional inference forests* in `R`. This is built on two main aspects of interpretation: 1) visualizations and 2) tables. Both are built on the following function:
+
+* `obtain_important` provides the subsetted data of n most important variables from the random forest.
 
 ## Visualizations
 
@@ -12,8 +14,7 @@ The main tool in understanding random forests and conditional inference forests 
 
 The second aspect of exploring and communicating results from these models are tables. These functions help show the top n important variables in relation to the outcome.
 
-1. `tab1_forests` gives stratified descriptive statistics of the n important variables and the outcome
-2. `accuracies` gives the measures of accuracy in a simple table
+1. `accuracies` gives the measures of accuracy in a simple table
 
 ## Additional Features
 
