@@ -1,7 +1,9 @@
 #' Visualization of the Variables of Importance
 #' 
 #' Visualizes--using ggplot2--the relationship of n important variables 
-#' in a random forest with the outcome with a loess curve (if continuous).
+#' in a random forest with the outcome with a loess curve (if continuous). 
+#' You can easily add more ggplot2 functions to the plot to adjust it as
+#' desired. The default theme is this package's `theme_anteo`.
 #' 
 #' @param obj a randomForest object
 #' @param n the number of important variables
