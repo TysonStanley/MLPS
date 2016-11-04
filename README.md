@@ -1,3 +1,8 @@
+### Developmental Version
+
+[![GitHub version](https://badge.fury.io/gh/tysonstanley%2Fanteo.svg)](https://badge.fury.io/gh/tysonstanley%2Fanteo)
+[![Build Status](https://travis-ci.org/TysonStanley/anteo.svg?branch=master)](https://travis-ci.org/TysonStanley/anteo)
+
 # anteo *(Latin: prevent, go before)*
 
 Anteo means to prevent or go before; since this package is built for prevention research it was only fitting (plus it sounds good). This package is built for use in interpreting *random forests* and *conditional inference forests* in `R`. This is built on two main aspects of interpretation: 1) visualizations and 2) tables. Both are built on the following function:
