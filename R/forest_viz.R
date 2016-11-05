@@ -49,7 +49,7 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 #' @export
 obtain_important = function(obj, n=10, imp_measure='mse'){
   ## RandomForest object
-  if (grepl("randomForest", class(obj))){
+  if (any(grepl("randomForest", class(obj)))){
     .data = eval(obj$call$data)
     .y = obj$y
     
@@ -65,32 +65,31 @@ obtain_important = function(obj, n=10, imp_measure='mse'){
       .imp = d_imp[order(d_imp[,1], decreasing = TRUE),]
     }
     
-    nams = row.names(.imp)[1:n]
-    d = .data[nams]
-    d$outcome = .y
-    
-    return(d)
+    .nams = row.names(.imp)[1:n]
+
   }
   
   ## CForest Object
-  else if (grepl("RandomForest", class(obj))){
+  else if (any(grepl("RandomForest", class(obj)))){
     .data = obj@data
     .y = obj@responses
     
     .d_imp = varimp(obj)
     .imp = sort(.d_imp, decreasing = TRUE)
-    
-    nams = row.names(.imp)[1:n]
-    d = .data[nams]
-    d$outcome = .y
-    
-    return(d)
+    .nams = names(.imp)[1:n]
   } 
   
+  ## Error catching
   else {
     stop("obj must be of class 'randomForest' from the randomForest package 
          or 'RandomForest' from the party package")
   }
+  
+  ## Final Return
+  d = .data[.nams]
+  d$outcome = .y
+  
+  return(d)
 }
 
 
