@@ -45,14 +45,14 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 #' @param imp_measure the variable importance measure
 #' 
 #' @import party
+#' @import modeltools
 #' 
 #' @export
 obtain_important = function(obj, n=10, imp_measure='mse'){
   ## RandomForest object
   if (any(grepl("randomForest", class(obj)))){
-    .data = eval(obj$call$data)
-    .y = obj$y
-    
+    .data  = eval(obj$call$data)
+    .y     = obj$y
     .d_imp = data.frame(obj$importance)
     
     if(obj$type == "regression"){
@@ -66,17 +66,16 @@ obtain_important = function(obj, n=10, imp_measure='mse'){
     }
     
     .nams = row.names(.imp)[1:n]
-
   }
   
   ## CForest Object
   else if (any(grepl("RandomForest", class(obj)))){
-    .data = data.frame(obj@data)
-    .y = obj@responses
+    .data = MEapply(obj@data, FUN=as.data.frame)
+    .y    = MEapply(obj@responses, FUN=as.vector)
     
     .d_imp = varimp(obj)
-    .imp = sort(.d_imp, decreasing = TRUE)
-    .nams = names(.imp)[1:n]
+    .imp   = sort(.d_imp, decreasing = TRUE)
+    .nams  = names(.imp)[1:n]
   } 
   
   ## Error catching
