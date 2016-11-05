@@ -26,7 +26,7 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
   ggplot(.data_long, aes(x=value, y=outcome, group=var)) +
     geom_count(aes(color = var)) +
     facet_wrap(~var, scales = "free") +
-    geom_smooth(color = "coral4") +
+    geom_smooth(color = "coral4", method="loess") +
     theme_anteo() +
     guides(color = "none") +
     labs(y = "Outcome",
@@ -81,8 +81,7 @@ obtain_important = function(obj, n=10, imp_measure='mse'){
   
   ## Error catching
   else {
-    stop("obj must be of class 'randomForest' from the randomForest package 
-         or 'RandomForest' from the party package")
+    stop("obj must be of class 'randomForest' from the randomForest package")
   }
   
   ## Final Return
