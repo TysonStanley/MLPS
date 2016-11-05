@@ -71,7 +71,7 @@ obtain_important = function(obj, n=10, imp_measure='mse'){
   
   ## CForest Object
   else if (any(grepl("RandomForest", class(obj)))){
-    .data = MEapply(obj@data, FUN=as.data.frame)
+    .data = MEapply(obj@data, FUN=data.frame)
     .y    = obj@responses
     
     .d_imp = varimp(obj)
