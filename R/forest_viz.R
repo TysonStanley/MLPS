@@ -44,30 +44,53 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 #' @param n the number of important variables
 #' @param imp_measure the variable importance measure
 #' 
-#' @import ggplot2
+#' @import party
 #' 
 #' @export
 obtain_important = function(obj, n=10, imp_measure='mse'){
-  .data = eval(obj$call$data)
-  .y = obj$y
-  
-  .d_imp = data.frame(obj$importance)
-  
-  if(obj$type == "regression"){
-    if (imp_measure=="mse"){
-      .imp = .d_imp[order(.d_imp[,1], decreasing = TRUE),]
-    } else {
-      .imp = .d_imp[order(.d_imp[,2], decreasing = TRUE),]
+  ## RandomForest object
+  if (grepl("randomForest", class(obj))){
+    .data = eval(obj$call$data)
+    .y = obj$y
+    
+    .d_imp = data.frame(obj$importance)
+    
+    if(obj$type == "regression"){
+      if (imp_measure=="mse"){
+        .imp = .d_imp[order(.d_imp[,1], decreasing = TRUE),]
+      } else {
+        .imp = .d_imp[order(.d_imp[,2], decreasing = TRUE),]
+      }
+    } else if (obj$type == "classification"){
+      .imp = d_imp[order(d_imp[,1], decreasing = TRUE),]
     }
-  } else if (obj$type == "classification"){
-    .imp = d_imp[order(d_imp[,1], decreasing = TRUE),]
+    
+    nams = row.names(.imp)[1:n]
+    d = .data[nams]
+    d$outcome = .y
+    
+    return(d)
   }
   
-  nams = row.names(.imp)[1:n]
-  d = .data[nams]
-  d$outcome = .y
+  ## CForest Object
+  else if (grepl("RandomForest", class(obj))){
+    .data = obj@data
+    .y = obj@responses
+    
+    .d_imp = varimp(obj)
+    .imp = sort(.d_imp, decreasing = TRUE)
+    
+    nams = row.names(.imp)[1:n]
+    d = .data[nams]
+    d$outcome = .y
+    
+    return(d)
+  } 
   
-  return(d)
+  else {
+    stop("obj must be of class 'randomForest' from the randomForest package 
+         or 'RandomForest' from the party package")
+  }
 }
 
 
