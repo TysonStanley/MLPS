@@ -34,6 +34,48 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 }
 
 
+#' Visualization of the Variables of Importance for cforest
+#' 
+#' Visualizes--using ggplot2--the relationship of n important variables 
+#' in a random forest with the outcome with a loess curve (if continuous). 
+#' You can easily add more ggplot2 functions to the plot to adjust it as
+#' desired. The default theme is this package's `theme_anteo`.
+#' 
+#' @param obj a randomForest object
+#' @param n the number of important variables
+#' @param imp_measure the variable importance measure
+#' 
+#' @import ggplot2
+#' @import dplyr
+#' @import tidyr
+#' @importFrom party varimp
+#' 
+#' @export
+cforest_viz <- function(obj, data, outcome, n=10, imp_measure='default'){
+  
+  ## Data
+  .varimps = party::varimp(obj)
+  .imps    = sort(.varimps, decreasing = FALSE)
+  .nams    = names(.imps)[1:n]
+  .data    = data[, .nams]
+  
+  .data$outcome = data[[outcome]]
+  
+  ## Reformat data
+  .data_long = gather(.data, "var", "value", 1:n)
+  
+  ## Graphic
+  ggplot(.data_long, aes(x=value, y=outcome, group=var)) +
+    geom_count(aes(color = var)) +
+    facet_wrap(~var, scales = "free") +
+    geom_smooth(color = "coral4", method="loess") +
+    theme_anteo() +
+    guides(color = "none") +
+    labs(y = "Outcome",
+         x = "")
+}
+
+
 
 #' Obtain Important Variable Information
 #' 
@@ -43,10 +85,6 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 #' @param obj a randomForest object
 #' @param n the number of important variables
 #' @param imp_measure the variable importance measure
-#' @param 
-#' 
-#' @import party
-#' @import modeltools
 #' 
 #' @export
 obtain_important = function(obj, n=10, imp_measure='mse'){
