@@ -42,6 +42,8 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 #' desired. The default theme is this package's `theme_anteo`.
 #' 
 #' @param obj a randomForest object
+#' @param data the data.frame object from which the randomForest object was made
+#' @param outcome the name of the outcome variable in quotes (e.g., "bmi")
 #' @param n the number of important variables
 #' @param imp_measure the variable importance measure
 #' 

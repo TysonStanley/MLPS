@@ -9,6 +9,10 @@ cforest_viz(obj, data, outcome, n = 10, imp_measure = "default")
 \arguments{
 \item{obj}{a randomForest object}
 
+\item{data}{the data.frame object from which the randomForest object was made}
+
+\item{outcome}{the name of the outcome variable in quotes (e.g., "bmi")}
+
 \item{n}{the number of important variables}
 
 \item{imp_measure}{the variable importance measure}
