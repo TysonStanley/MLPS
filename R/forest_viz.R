@@ -23,8 +23,8 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
   .data_long = gather(imps, "var", "value", 1:n)
 
   ## Graphic
-  ggplot(.data_long, aes(x=value, y=outcome, group=var)) +
-    geom_count(aes(color = var)) +
+  ggplot(.data_long, aes_string(x="value", y="outcome", group="var")) +
+    geom_count(aes_string(color = "var")) +
     facet_wrap(~var, scales = "free") +
     geom_smooth(color = "coral4", method="loess") +
     theme_anteo() +
@@ -46,7 +46,6 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 #' @param data the data.frame object from which the randomForest object was made
 #' @param outcome the name of the outcome variable in quotes (e.g., "bmi")
 #' @param n the number of important variables
-#' @param imp_measure the variable importance measure
 #' 
 #' @import ggplot2
 #' @import dplyr
@@ -54,7 +53,7 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 #' @importFrom party varimp
 #' 
 #' @export
-cforest_viz <- function(obj, data, outcome, n=10, imp_measure='default'){
+cforest_viz <- function(obj, data, outcome, n=10){
   
   ## Data
   .varimps = party::varimp(obj)
@@ -68,8 +67,8 @@ cforest_viz <- function(obj, data, outcome, n=10, imp_measure='default'){
   .data_long = gather(.data, "var", "value", 1:n)
   
   ## Graphic
-  ggplot(.data_long, aes(x=value, y=outcome, group=var)) +
-    geom_count(aes(color = var)) +
+  ggplot(.data_long, aes_string(x="value", y="outcome", group="var")) +
+    geom_count(aes_string(color = "var")) +
     facet_wrap(~var, scales = "free") +
     geom_smooth(color = "coral4", method="loess") +
     theme_anteo() +
@@ -110,17 +109,7 @@ obtain_important = function(obj, n=10, imp_measure='mse'){
     
     .nams = row.names(.imp)[1:n]
   }
-  
-  ## CForest Object -- not working yet
-  # else if (any(grepl("RandomForest", class(obj)))){
-  #   .data = MEapply(obj@data, FUN=data.frame)
-  #   .y    = obj@responses
-  #   
-  #   .d_imp = varimp(obj)
-  #   .imp   = sort(.d_imp, decreasing = TRUE)
-  #   .nams  = names(.imp)[1:n]
-  # } 
-  
+
   ## Error catching
   else {
     stop("obj must be of class 'randomForest' from the randomForest package")

@@ -4,7 +4,7 @@
 \alias{cforest_viz}
 \title{Visualization of the Variables of Importance for cforest}
 \usage{
-cforest_viz(obj, data, outcome, n = 10, imp_measure = "default")
+cforest_viz(obj, data, outcome, n = 10)
 }
 \arguments{
 \item{obj}{a randomForest object}
@@ -14,8 +14,6 @@ cforest_viz(obj, data, outcome, n = 10, imp_measure = "default")
 \item{outcome}{the name of the outcome variable in quotes (e.g., "bmi")}
 
 \item{n}{the number of important variables}
-
-\item{imp_measure}{the variable importance measure}
 }
 \description{
 Visualizes--using ggplot2--the relationship of n important variables 
