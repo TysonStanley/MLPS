@@ -31,7 +31,7 @@
 #' 
 #' ## Conditional Inference Forest
 #' fit2 = cforest(outcome ~ ., data=data)
-#' cforest_viz(fit2)
+#' cforest_viz(fit2, data = data, outcome = "outcome")
 #' 
 #' }
 #' 
