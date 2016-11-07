@@ -104,7 +104,7 @@ obtain_important = function(obj, n=10, imp_measure='mse'){
         .imp = .d_imp[order(.d_imp[,2], decreasing = TRUE),]
       }
     } else if (obj$type == "classification"){
-      .imp = d_imp[order(d_imp[,1], decreasing = TRUE),]
+      .imp = .d_imp[order(.d_imp[,1], decreasing = TRUE),]
     }
     
     .nams = row.names(.imp)[1:n]

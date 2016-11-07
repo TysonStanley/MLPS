@@ -18,7 +18,7 @@
 #' 
 #' Overall, the package helps with the exploration of large data sets.
 #' 
-#' Note: \textbf{anteo} means to prevent or go before in latin.
+#' Note: anteo means to prevent or go before in latin.
 #' 
 #' @examples
 #' \dontrun{
