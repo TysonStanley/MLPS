@@ -31,6 +31,7 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
     guides(color = "none") +
     labs(y = "Outcome",
          x = "")
+  return(0)
 }
 
 
@@ -75,6 +76,7 @@ cforest_viz <- function(obj, data, outcome, n=10, imp_measure='default'){
     guides(color = "none") +
     labs(y = "Outcome",
          x = "")
+  return(0)
 }
 
 
