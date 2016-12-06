@@ -1,11 +1,11 @@
 Package: anteo
 Title: Anteo (Exploring Data for Prevention)
-Version: 0.0.1
+Version: 0.0.3
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
-Description: It provides tools for working with random forests. It allows
+Description: It provides tools for working with LASSO regression and
+      random forests. It allows simple variable extraction from LASSO and
       easy visualization of relationships of the n important variables 
       in a random forest with the outcome (for both randomForest and cforest).
-      It also provides usability with the grplasso package (for grouped lasso regression).
       Additionally, contains two ggplot2 themes.
 Depends:
     R (>= 3.3.1),
@@ -13,10 +13,12 @@ Depends:
     dplyr,
     tidyr
 Imports:
-    party
+    party,
+    stats
 Suggests: 
     testthat,
-    randomForest
+    randomForest,
+    glmnet
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

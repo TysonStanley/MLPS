@@ -24,6 +24,7 @@
 #' \dontrun{
 #' 
 #' library(anteo)
+#' library(glmnet)
 #' 
 #' ## Random Forest
 #' fit = randomForest(outcome ~ ., data=data)
@@ -32,6 +33,11 @@
 #' ## Conditional Inference Forest
 #' fit2 = cforest(outcome ~ ., data=data)
 #' cforest_viz(fit2, data = data, outcome = "outcome")
+#' 
+#' ## LASSO
+#' fit = cv.glmnet(outcome ~ ., data = data)
+#' vars = lasso_extract(fit)
+#' vars
 #' 
 #' }
 #' 
