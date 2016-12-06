@@ -15,7 +15,7 @@ lasso_extract = function(..., s="lambda.1se"){
   for (i in list(...)){
     j = j + 1
     .s    = eval(parse(text=paste(s)), i)
-    coefs = coef(i, s=.s)
+    coefs = stats::coef(i, s=.s)
     nams  = coefs@Dimnames[[1]]
     vars  = nams[coefs@i + 1]
     .selected[[j]] = vars[-1]

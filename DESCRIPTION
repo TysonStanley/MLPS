@@ -13,8 +13,7 @@ Depends:
     dplyr,
     tidyr
 Imports:
-    party,
-    stats
+    party
 Suggests: 
     testthat,
     randomForest,
