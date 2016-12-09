@@ -5,11 +5,12 @@
 #' 
 #' @param ... cv.glmnet objects
 #' @param s options of lambda cut off (see \code{coef.glmnet})
+#' @param data default is NULL; if specified it returns the variables as part of a data.frame
 #' 
 #' @import stats
 #' 
 #' @export
-lasso_extract = function(..., s="lambda.1se"){
+lasso_extract = function(..., s="lambda.1se", .data=NULL){
   j = 0
   .selected = list()
   for (i in list(...)){
@@ -20,5 +21,19 @@ lasso_extract = function(..., s="lambda.1se"){
     vars  = nams[coefs@i + 1]
     .selected[[j]] = vars[-1]
   }
-  return(.selected)
+  
+  if (is.null(.data)){
+    return(.selected)
+    
+  } else {
+    vars2 = .d = list()
+    for (l in 1:length(.selected)){
+      for (k in unlist(.selected[[l]])){
+        vars2[[k]] = grep(names(.data), k)
+      }
+      indexed = unlist(vars2)
+      .d[[l]] = .data[, indexed]
+    }
+    return(.d)
+  }
 }

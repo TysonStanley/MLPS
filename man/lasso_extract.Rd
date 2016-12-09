@@ -4,12 +4,14 @@
 \alias{lasso_extract}
 \title{Extracting the Selected Variables}
 \usage{
-lasso_extract(..., s = "lambda.1se")
+lasso_extract(..., s = "lambda.1se", .data = NULL)
 }
 \arguments{
 \item{...}{cv.glmnet objects}
 
 \item{s}{options of lambda cut off (see \code{coef.glmnet})}
+
+\item{data}{default is NULL; if specified it returns the variables as part of a data.frame}
 }
 \description{
 Extracts the list of selected variables from \code{cv.glmnet} lasso regression.
