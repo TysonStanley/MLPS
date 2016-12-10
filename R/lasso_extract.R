@@ -26,9 +26,10 @@ lasso_extract = function(..., s="lambda.1se", .data=NULL){
     return(.selected)
     
   } else {
+    .data = as.data.frame(.data)
     vars2 = .d = list()
     for (l in 1:length(.selected)){
-      for (k in seq_along(.data)){
+      for (k in 1:dim(.data)[2]){
         vars2[[k]] = grepl(names(.data)[k], .selected[[l]])
       }
       indexed = rowSums(as.data.frame(vars2))
