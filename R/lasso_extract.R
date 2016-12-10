@@ -33,6 +33,7 @@ lasso_extract = function(..., s="lambda.1se", .data=NULL){
         vars2[[k]] = grepl(names(.data)[k], .selected[[l]])
       }
       indexed = rowSums(as.data.frame(vars2))
+      indexed = ifelse(indexed < 1, FALSE, TRUE)
       .d[[l]] = .data[, indexed]
     }
     return(.d)
