@@ -28,8 +28,8 @@ lasso_extract = function(..., s="lambda.1se", .data=NULL){
   } else {
     vars2 = .d = list()
     for (l in 1:length(.selected)){
-      for (k in seq_along(.selected[[l]])){
-        vars2[[k]] = grepl(names(.data)[k], .selected[[l]][[k]])
+      for (k in seq_along(.data)){
+        vars2[[k]] = grepl(names(.data)[k], .selected[[l]])
       }
       indexed = unlist(vars2)
       .d[[l]] = .data[, indexed]
