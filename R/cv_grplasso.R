@@ -49,7 +49,7 @@ cv_grplasso = function(formula, .data, lambda, model=LinReg(), ..., plot=TRUE){
       rmse[[paste0("lambda=", k)]] = data.frame("RMSE"    = sqrt(mean(diffs[, m])),
                                                 "RMSE_SE" = sqrt(var(diffs[, m]))/sqrt(nobs))
     }
-  } else if (model = LogReg()){
+  } else if (model == LogReg()){
     for (k in lambda){
       m = m + 1
       classe[[paste0("lambda=", k)]] = data.frame("ClassError" = sum(diffs[, m])/nobs)

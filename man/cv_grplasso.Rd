@@ -4,7 +4,7 @@
 \alias{cv_grplasso}
 \title{Cross-Validation of Group LASSO}
 \usage{
-cv_grplasso(formula, .data, lambda, ..., plot = TRUE)
+cv_grplasso(formula, .data, lambda, model = LinReg(), ..., plot = TRUE)
 }
 \arguments{
 \item{formula}{a two-sided formula for the model fit}
@@ -12,6 +12,8 @@ cv_grplasso(formula, .data, lambda, ..., plot = TRUE)
 \item{.data}{the \code{data.frame} object}
 
 \item{lambda}{the number(s) to test for the tuning parameter $\lambda$. Can be a sequence but must be in reverse order.}
+
+\item{model}{default is \code{LinReg()} for linear regression, other option is \code{LogReg()} for logistic regression.}
 
 \item{...}{other arguments for the \code{grplasso} function such as \code{model = LinReg()}}
 
