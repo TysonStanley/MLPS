@@ -4,7 +4,7 @@
 #' 
 #' @param formula a two-sided formula for the model fit
 #' @param .data the \code{data.frame} object
-#' @param lambda the number(s) to test for the tuning parameter $\lambda$. Can be a sequence but must be in reverse order.
+#' @param lambda the number(s) to test for the tuning parameter lambda. Can be a sequence but must be in reverse order.
 #' @param model default is \code{LinReg()} for linear regression, other option is \code{LogReg()} for logistic regression.
 #' @param ... other arguments for the \code{grplasso} function such as \code{model = LinReg()}
 #' @param plot logical; when set to \code{TRUE} it prints out a ggplot2 plot of the RMSE of each lambda value supplied
