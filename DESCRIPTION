@@ -10,14 +10,13 @@ Description: It provides tools for working with LASSO regression and
 Depends:
     R (>= 3.3.1),
     ggplot2,
-    dplyr,
+    grplasso,
     tidyr
 Imports:
     party
 Suggests: 
     testthat,
-    randomForest,
-    glmnet
+    randomForest
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
