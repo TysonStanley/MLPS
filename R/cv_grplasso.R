@@ -120,7 +120,7 @@ selected_grplasso = function(grplasso_obj){
   coefs     = as.data.frame(coef(grplasso_obj))
   coefs$var = row.names(coefs)
   n_lambda  = length(grplasso_obj$lambda)
-  p1        = tidyr::gather("variable", "value", 1:n_lambda)
+  p1        = tidyr::gather(coefs, "variable", "value", 1:n_lambda)
   p1$variable = as.numeric(gsub("X", "", p1$variable))
   
   ggplot(p1, aes(x = variable, y = value, group=var, frame=var)) +
