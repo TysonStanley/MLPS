@@ -5,6 +5,7 @@
 #' @param formula a two-sided formula for the model fit
 #' @param .data the \code{data.frame} object
 #' @param lambda the number(s) to test for the tuning parameter $\lambda$. Can be a sequence but must be in reverse order.
+#' @param model default is \code{LinReg()} for linear regression, other option is \code{LogReg()} for logistic regression.
 #' @param ... other arguments for the \code{grplasso} function such as \code{model = LinReg()}
 #' @param plot logical; when set to \code{TRUE} it prints out a ggplot2 plot of the RMSE of each lambda value supplied
 #' 
@@ -13,7 +14,7 @@
 #' @import grplasso
 #' 
 #' @export
-cv_grplasso = function(formula, .data, lambda, ..., plot=TRUE){
+cv_grplasso = function(formula, .data, lambda, model=LinReg(), ..., plot=TRUE){
   modlist = rmse = list()
   diff2 = list()
   nfolds = 10
@@ -30,19 +31,32 @@ cv_grplasso = function(formula, .data, lambda, ..., plot=TRUE){
                             standardize = TRUE,
                             subset = !which1)
     modfit = modlist[[i]]
-    preds = as.data.frame(predict(modfit, d4[which1, ]))
-    diff2[[i]] = (.data$del1[which1] - preds)^2
+    if (model == LinReg()){
+      preds = as.data.frame(predict(modfit, d4[which1, ]))
+      diff2[[i]] = (.data$del1[which1] - preds)^2
+    } else if (model == LogReg()){
+      preds = as.data.frame(predict(modfit, d4[which1, ]), type = "class")
+      diff2[[i]] = abs(.data$del1[which1] - preds)
+    }
+    
   }
   diffs = do.call("rbind", diff2)
   nobs  = dim(diffs)[1]
   m = 0
-  for (k in lambda){
-    m = m + 1
-    rmse[[paste0("lambda=", k)]] = data.frame("RMSE"    = sqrt(mean(diffs[, m])),
-                                              "RMSE_SE" = sqrt(var(diffs[, m]))/sqrt(nobs))
+  if (model == LinReg()){
+    for (k in lambda){
+      m = m + 1
+      rmse[[paste0("lambda=", k)]] = data.frame("RMSE"    = sqrt(mean(diffs[, m])),
+                                                "RMSE_SE" = sqrt(var(diffs[, m]))/sqrt(nobs))
+    }
+  } else if (model = LogReg()){
+    for (k in lambda){
+      m = m + 1
+      classe[[paste0("lambda=", k)]] = data.frame("ClassError" = sum(diffs[, m])/nobs)
+    }
   }
-  
-  if (plot){
+
+  if (plot & model == LinReg()){
     vals = do.call("rbind", rmse)
     vals$x = row.names(vals)
     vals$x = as.numeric(gsub("lambda=", "", vals$x))
@@ -56,14 +70,38 @@ cv_grplasso = function(formula, .data, lambda, ..., plot=TRUE){
       geom_hline(data=vals[which(vals$RMSE == min(vals$RMSE)),], aes(yintercept = RMSE + RMSE_SE), 
                  color = "dodgerblue4") +
       labs(y = "Root Mean Squared Error (RMSE)",
-           x = "Lambda") +
+           x = "Lambda",
+           title="RMSE of the Various Models",
+           subtitle="by the value of lambda") +
       scale_x_reverse()
     
     rmse = do.call("rbind", rmse)
     return(list("Plot"=p1, "RMSE"=rmse))
+    
+  } else if (plot & model == LogReg()){
+    vals = do.call("rbind", classe)
+    vals$x = row.names(vals)
+    vals$x = as.numeric(gsub("lambda=", "", vals$x))
+    p1 = ggplot(vals, aes(x = x, y = RMSE, group=1)) +
+      geom_line(aes(color=RMSE)) +
+      theme_anteo_wh() +
+      labs(y = "Classification Error",
+           x = "Lambda",
+           title="Classification Error of the Various Models",
+           subtitle="by the value of lambda") +
+      scale_x_reverse()
+    
+    classe = do.call("rbind", classe)
+    return(list("Plot"=p1, "RMSE"=classe))
+    
   } else {
-    rmse = do.call("rbind", rmse)
-    return(list("Plot"=paste("No plot requested"), "RMSE"=rmse))
+    if (model == LogReg()){
+      classe = do.call("rbind", classe)
+      return(list("Plot"=paste("No plot requested"), "Classification_Error"=classe))
+    } else if (model == LinReg()){
+      rmse = do.call("rbind", rmse)
+      return(list("Plot"=paste("No plot requested"), "RMSE"=rmse))
+    }
   }
 }
 
