@@ -66,3 +66,33 @@ cv_grplasso = function(formula, .data, lambda, ..., plot=TRUE){
     return(list("Plot"=paste("No plot requested"), "RMSE"=rmse))
   }
 }
+
+#' Variable Selection of Group LASSO
+#' 
+#' Provided a model fit with \code{grplasso::grplasso}, the function provides a plot
+#' showing when each variable was selected by the value of lambda (the tuning parameter).
+#' 
+#' @param grplasso_obj the model object from \code{grplasso::grplasso}
+#'
+#' @import stats
+#' @import ggplot2
+#' @import tidyr
+#' 
+#' @export
+selected_grplasso = function(grplasso_obj){
+  coefs     = as.data.frame(coef(grplasso_obj))
+  coefs$var = row.names(coefs)
+  n_lambda  = length(grplasso_obj$lambda)
+  p1        = tidyr::gather("variable", "value", 1:n_lambda)
+  p1$variable = as.numeric(gsub("X", "", p1$variable))
+  
+  ggplot(p1, aes(x = variable, y = value, group=var, frame=var)) +
+    geom_line(aes(color = var)) +
+    scale_color_discrete(guide=FALSE) +
+    theme_anteo_wh() +
+    labs(x="lambda",
+         y="Coefficients",
+         title="Variable Selection of the Group LASSO",
+         subtitle="by the value of lambda") +
+    scale_x_reverse()
+}
