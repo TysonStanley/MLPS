@@ -10,7 +10,6 @@
 #' @param imp_measure the variable importance measure
 #' 
 #' @import ggplot2
-#' @import dplyr
 #' @import tidyr
 #' 
 #' @export
@@ -47,7 +46,6 @@ forest_viz <- function(obj, n=10, imp_measure='default'){
 #' @param n the number of important variables
 #' 
 #' @import ggplot2
-#' @import dplyr
 #' @import tidyr
 #' @importFrom party varimp
 #' 

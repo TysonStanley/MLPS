@@ -3,7 +3,7 @@ Title: Anteo (Exploring Data for Prevention)
 Version: 0.0.3
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
 Description: It provides tools for working with LASSO regression and
-      random forests. It allows simple variable extraction from LASSO and
+      random forests. It allows cross-validation for group LASSO and
       easy visualization of relationships of the n important variables 
       in a random forest with the outcome (for both randomForest and cforest).
       Additionally, contains two ggplot2 themes.

@@ -1,8 +1,8 @@
 #' anteo
 #' 
-#' The anteo package offers tools that work with random forest objects (from the 
-#' \code{randomForest} package and conditional inference forest objects (from the 
-#' \code{party} package. 
+#' The anteo package offers tools that work with Group LASSO (from the \code{grplasso} package, 
+#' random forest objects (from the \code{randomForest} package) and 
+#' conditional inference forest objects (from the \code{party} package). 
 #' \itemize{
 #'   \item \code{forest_viz} a simple visualization tool for looking at the relationships
 #'          of the n most imporant variables and the outcome (for \code{randomForest})
@@ -24,7 +24,9 @@
 #' \dontrun{
 #' 
 #' library(anteo)
-#' library(glmnet)
+#' library(randomForest)
+#' library(party)
+#' library(grplasso)
 #' 
 #' ## Random Forest
 #' fit = randomForest(outcome ~ ., data=data)
@@ -34,10 +36,9 @@
 #' fit2 = cforest(outcome ~ ., data=data)
 #' cforest_viz(fit2, data = data, outcome = "outcome")
 #' 
-#' ## LASSO
-#' fit = cv.glmnet(outcome ~ ., data = data)
-#' vars = lasso_extract(fit)
-#' vars
+#' ## Group LASSO
+#' fit = cv_grplasso(outcome ~., .data=data, model = LinReg(), lambda = seq(from=50001, to=1, by=-5000))
+#' fit 
 #' 
 #' }
 #' 
