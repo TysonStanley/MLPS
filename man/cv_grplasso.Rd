@@ -11,7 +11,7 @@ cv_grplasso(formula, .data, lambda, model = LinReg(), ..., plot = TRUE)
 
 \item{.data}{the \code{data.frame} object}
 
-\item{lambda}{the number(s) to test for the tuning parameter $\lambda$. Can be a sequence but must be in reverse order.}
+\item{lambda}{the number(s) to test for the tuning parameter lambda. Can be a sequence but must be in reverse order.}
 
 \item{model}{default is \code{LinReg()} for linear regression, other option is \code{LogReg()} for logistic regression.}
 
