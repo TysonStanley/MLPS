@@ -1,6 +1,6 @@
 Package: anteo
 Title: Anteo (Exploring Data for Prevention)
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
 Description: It provides tools for working with LASSO regression and
       random forests. It allows cross-validation for group LASSO and

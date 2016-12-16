@@ -15,48 +15,47 @@
 #' 
 #' @export
 cv_grplasso = function(formula, .data, lambda, model=LinReg(), ..., plot=TRUE){
-  modlist = rmse = list()
-  diff2 = list()
+  modlist = rmse = classe = diff2 = list()
   nfolds = 10
   foldid = sample(seq(nfolds), length(.data[[1]]), replace = TRUE)
   .data = as.data.frame(.data)
   which1 = NULL
   for (i in seq(nfolds)) {
     which1 = (foldid == i)
+    training = .data[!which1, ]
+    testing  = .data[which1, ]
     modlist[[i]] = grplasso(formula, 
                             data = .data, 
-                            ...,
-                            lambda = lambda,
-                            center = TRUE, 
-                            standardize = TRUE,
-                            subset = !which1)
+                            model = model,
+                            lambda = lambda)
     modfit = modlist[[i]]
-    if (model == LinReg()){
-      preds = as.data.frame(predict(modfit, d4[which1, ]))
-      diff2[[i]] = (.data$del1[which1] - preds)^2
-    } else if (model == LogReg()){
-      preds = as.data.frame(predict(modfit, d4[which1, ]), type = "class")
-      diff2[[i]] = abs(.data$del1[which1] - preds)
+    linreg = model@name == "Linear Regression Model"
+    logreg = model@name == "Logistic Regression Model"
+    if (linreg){
+      preds = as.data.frame(predict(modfit, testing))
+      diff2[[i]] = (testing[,paste(formula)[2]] - preds)^2
+    } else if (logreg){
+      preds = as.data.frame(predict(modfit, testing), type = "class")
+      diff2[[i]] = abs(testing[,paste(formula)[2]] - preds)
     }
-    
   }
   diffs = do.call("rbind", diff2)
   nobs  = dim(diffs)[1]
   m = 0
-  if (model == LinReg()){
+  if (linreg){
     for (k in lambda){
       m = m + 1
       rmse[[paste0("lambda=", k)]] = data.frame("RMSE"    = sqrt(mean(diffs[, m])),
                                                 "RMSE_SE" = sqrt(var(diffs[, m]))/sqrt(nobs))
     }
-  } else if (model == LogReg()){
+  } else if (logreg){
     for (k in lambda){
       m = m + 1
       classe[[paste0("lambda=", k)]] = data.frame("ClassError" = sum(diffs[, m])/nobs)
     }
   }
-
-  if (plot & model == LinReg()){
+  
+  if (plot & linreg){
     vals = do.call("rbind", rmse)
     vals$x = row.names(vals)
     vals$x = as.numeric(gsub("lambda=", "", vals$x))
@@ -78,7 +77,7 @@ cv_grplasso = function(formula, .data, lambda, model=LinReg(), ..., plot=TRUE){
     rmse = do.call("rbind", rmse)
     return(list("Plot"=p1, "RMSE"=rmse))
     
-  } else if (plot & model == LogReg()){
+  } else if (plot & logreg){
     vals = do.call("rbind", classe)
     vals$x = row.names(vals)
     vals$x = as.numeric(gsub("lambda=", "", vals$x))
@@ -92,13 +91,13 @@ cv_grplasso = function(formula, .data, lambda, model=LinReg(), ..., plot=TRUE){
       scale_x_reverse()
     
     classe = do.call("rbind", classe)
-    return(list("Plot"=p1, "RMSE"=classe))
+    return(list("Plot"=p1, "ClassificationError"=classe))
     
   } else {
-    if (model == LogReg()){
+    if (linreg){
       classe = do.call("rbind", classe)
       return(list("Plot"=paste("No plot requested"), "Classification_Error"=classe))
-    } else if (model == LinReg()){
+    } else if (logreg){
       rmse = do.call("rbind", rmse)
       return(list("Plot"=paste("No plot requested"), "RMSE"=rmse))
     }
