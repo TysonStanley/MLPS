@@ -35,8 +35,8 @@ cv_grplasso = function(formula, .data, lambda, model=LinReg(), ..., plot=TRUE){
       preds = as.data.frame(predict(modfit, testing))
       diff2[[i]] = (testing[,paste(formula)[2]] - preds)^2
     } else if (logreg){
-      preds = as.data.frame(predict(modfit, testing), type = "class")
-      diff2[[i]] = abs(testing[,paste(formula)[2]] - preds)
+      preds = as.data.frame(ifelse(predict(modfit, testing, type = "response") >= .5, 1, 0))
+      diff2[[i]] = ifelse(testing[,paste(formula)[2]] == preds, 0, 1)
     }
   }
   diffs = do.call("rbind", diff2)
@@ -81,8 +81,8 @@ cv_grplasso = function(formula, .data, lambda, model=LinReg(), ..., plot=TRUE){
     vals = do.call("rbind", classe)
     vals$x = row.names(vals)
     vals$x = as.numeric(gsub("lambda=", "", vals$x))
-    p1 = ggplot(vals, aes(x = x, y = RMSE, group=1)) +
-      geom_line(aes(color=RMSE)) +
+    p1 = ggplot(vals, aes(x = x, y = ClassError, group=1)) +
+      geom_line(aes(color=ClassError)) +
       theme_anteo_wh() +
       labs(y = "Classification Error",
            x = "Lambda",
@@ -103,6 +103,7 @@ cv_grplasso = function(formula, .data, lambda, model=LinReg(), ..., plot=TRUE){
     }
   }
 }
+
 
 #' Variable Selection of Group LASSO
 #' 
