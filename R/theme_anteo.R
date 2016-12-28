@@ -19,8 +19,8 @@ theme_anteo <- function(base_size = 12, base_family = "Helvetica"){
         axis.ticks.x=element_line(color="lightgrey"),
         strip.background=element_rect(fill="grey99", color="grey99"),
         strip.text=element_text(face="bold"),
-        axis.line.x=element_line(color="grey50"),
-        axis.line.y=element_line(color="grey50"),
+        axis.line.x=element_line(color="darkgrey"),
+        axis.line.y=element_line(color="darkgrey"),
         panel.spacing = unit(0, "lines"),
         panel.background=element_rect(fill="grey99"),
         plot.background=element_rect(fill="grey99"))
@@ -48,8 +48,8 @@ theme_anteo_wh <- function(base_size = 12, base_family = "Helvetica"){
         axis.ticks.x=element_line(color="grey50"),
         strip.background=element_rect(fill="white", color="white"),
         strip.text=element_text(face="bold"),
-        axis.line.x=element_line(color="grey50"),
-        axis.line.y=element_line(color="grey50"),
+        axis.line.x=element_line(color="darkgrey"),
+        axis.line.y=element_line(color="darkgrey"),
         panel.spacing = unit(0, "lines"),
         panel.background=element_rect(fill="grey99"),
         plot.background=element_rect(fill="white"))
